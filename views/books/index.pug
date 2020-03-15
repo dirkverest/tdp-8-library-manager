@@ -1,0 +1,44 @@
+extends ../layout
+
+block content
+  h1
+    a(href="/")= title
+  div(class="search")
+    a(class="button floatleft", href="/books/new") + Create New Book
+    form(method="post", action="/books/search/" class="searchform")
+        input(name="search", type="text", id="search", placeholder="Search", class="searchinput", value=searchInput)
+        input(type="submit", value="Search")
+  if searchQuery
+    p(class="searchquery")= `Results for: ${searchQuery}`
+  if books.length != 0
+    table
+      thead
+        tr
+          th Title
+          th Author
+          th Genre
+          th Year
+      tbody
+        each book in books
+          tr
+            td
+              a(href=`/books/${book.id}`)= book.title
+            td= book.author
+            td= book.genre
+            td= book.year
+    div(class="pagination")
+      if pages.length > 1
+        if searchQuery
+          a(href=`/books/search?page=${currentPage - 1}`, class=(1 === currentPage ? "disable" : "")) &laquo
+          each page in pages
+            a(href=`/books/search?page=${page}`, class=(page === currentPage ? "active" : ""))= page
+          a(href=`/books/search?page=${currentPage + 1}`, class=(pages.length === currentPage ? "disable" : "")) &raquo
+        else
+          a(href=`/books?page=${currentPage - 1}`, class=(1 === currentPage ? "disable" : "")) &laquo
+          each page in pages
+            a(href=`/books?page=${page}`, class=(page === currentPage ? "active" : ""))= page
+          a(href=`/books?page=${currentPage + 1}`, class=(pages.length === currentPage ? "disable" : "")) &raquo
+  else
+    h3(class="error") Sorry, no books here
+    br
+    a(class="button", href="/") Return to Book index

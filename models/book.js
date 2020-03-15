@@ -1,7 +1,7 @@
-const {Model, DataTypes} = require('sequelize');
+const {Model, DataTypes, Op} = require('sequelize');
 
 module.exports = (sequelize) => {
-    class Book extends Model {};
+    class Book extends Model {}
 
     // Book model attributes
     Book.init({
@@ -44,9 +44,9 @@ module.exports = (sequelize) => {
                     arg: true,
                     msg: "Year of publication has to be a number: YYYY"
                 },
-                len: {
-                    arg: [0,4],
-                    msg: "Year can by only 4 numbers long: YYYY"
+                max: {
+                    arg: 9999,
+                    msg: "Year can only contain a max of 4 numbers: YYYY"
                 }
             }
         }
