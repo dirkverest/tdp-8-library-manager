@@ -43,10 +43,6 @@ module.exports = (sequelize) => {
                 isInt: {
                     arg: true,
                     msg: "Year of publication has to be a number: YYYY"
-                },
-                max: {
-                    arg: 9999,
-                    msg: "Year can only contain a max of 4 numbers: YYYY"
                 }
             }
         }
